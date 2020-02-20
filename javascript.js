@@ -28,7 +28,7 @@ $(document).ready(function () {
 
         $.ajax({
             method: "GET",
-            url: "http://api.openweathermap.org/data/2.5/forecast?q=" + searchCity + "&APPID=47fa82b62ef20633030e8379f62f4e90",
+            url: "https://api.openweathermap.org/data/2.5/forecast?q=" + searchCity + "&APPID=47fa82b62ef20633030e8379f62f4e90",
 
         }).then(function (future) {
             console.log(future)
