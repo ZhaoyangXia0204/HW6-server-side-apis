@@ -10,6 +10,7 @@ $(document).ready(function () {
         for (var i = 0; i < history.length; i++) {
             searchHistory(history[i]);
         }
+
     }
     gethistory();
 
@@ -24,6 +25,7 @@ $(document).ready(function () {
 
     });
     function weatherFuture(searchCity) {
+        $("#futureweather").empty();
         var searchCity = $("#searchCity").val();
 
         $.ajax({
@@ -49,7 +51,7 @@ $(document).ready(function () {
                 var cardS = $("<div>").addClass("card col-xl-2");
                 var cardBodyS = $("<div>").addClass("card-body");
                 var humidS = $("<p>").addClass("card-text").text("Humidity: " + fiveDayArray[i].main.humidity + "%");
-                var tempS = $("<p>").addClass("card-text").text("Temperature: " + fiveDayArray[i].main.temp + " °k");
+                var tempS = $("<p>").addClass("card-text").text("Temperature: " + ((fiveDayArray[i].main.temp-273.5)*1.8+32).toFixed(2) + " °k");
             
 
             
@@ -57,7 +59,7 @@ $(document).ready(function () {
 
             cardBodyS.append(titleS, tempS, humidS);
             cardS.append(cardBodyS);
-            $(".futureweather").append(cardS);
+            $("#futureweather").append(cardS);
             }
         });
     }
@@ -65,12 +67,13 @@ $(document).ready(function () {
 
     $("#submit").on("click", function () {
         event.preventDefault();
-        var searchCity = $("#input").val();
-        $("#input").val("");
+        // var searchCity = $("#input").val();
+        // $("#input").val("");
         weather(searchCity);
         weatherFuture(searchCity);
     })
-    function weather() {
+    function weather(searchCity) {
+        // $("#futureweather").empty();
         var searchCity = $("#searchCity").val();
         console.log(searchCity)
 
@@ -87,7 +90,7 @@ $(document).ready(function () {
 
             var card = $("<div>").addClass("card");
             var cardBody = $("<div>").addClass("card-body");
-            var temperature = $("<p>").addClass("card-text").text("Temperature: " + data.main.temp + " °k");
+            var temperature = $("<p>").addClass("card-text").text("Temperature: " + ((data.main.temp-273.5)*1.8+32).toFixed(2) + " °F");
             var humidit = $("<p>").addClass("card-text").text("Humidity: " + data.main.humidity + "%");
             var windSpeed = $("<p>").addClass("card-text").text("Wind Speed: " + data.wind.speed + " MPH");
 
